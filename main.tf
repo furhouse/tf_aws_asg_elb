@@ -11,7 +11,7 @@
 resource "aws_launch_configuration" "launch_config" {
   name = "${var.lc_name}"
   image_id = "${var.ami_id}"
-  iam_instance_profile = "${var.iam_instance_profile}"
+  instance_type = "${var.instance_type}"
   key_name = "${var.key_name}"
   security_groups = ["${var.security_group}"]
   user_data = "${file(var.user_data)}"
