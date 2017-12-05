@@ -19,9 +19,6 @@ variable "key_name" {
 variable "security_group" {
   description = "ID of SG the launched instance will use"
 }
-variable "user_data" {
-  description = "The path to a file with user_data for the instances"
-}
 
 #
 # Auto-Scaling Group
@@ -83,3 +80,12 @@ variable "vpc_zone_subnets" {
   description = "A comma seperated list string of VPC subnets to associate with ASG, should correspond with var.availability_zones zones"
 }
 
+variable "hostname" {
+  type = "string"
+  default = ""
+}
+
+variable "count" {
+  type = "string"
+  default = 1
+}

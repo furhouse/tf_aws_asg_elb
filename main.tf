@@ -8,13 +8,31 @@
  * It requires you create an ELB instance before you use it.
  */
 
+data "template_file" "cloud-init" {
+  template = "${file("${path.module}/cloud-init.yaml.tpl")}"
+  count    = "${var.count}"
+  vars {
+    hostname = "${var.hostname}-${count.index + 1}"
+  }
+}
+
+data "template_cloudinit_config" "userdata" {
+  gzip  = false
+  count = "${var.count}"
+  part {
+    filename     = "init.cfg"
+    content_type = "text/cloud-config"
+    content      =  "${element(data.template_file.cloud-init.*.rendered, count.index)}"
+  }
+}
+
 resource "aws_launch_configuration" "launch_config" {
   name_prefix = "${var.lc_name}-"
   image_id = "${var.ami_id}"
   instance_type = "${var.instance_type}"
   key_name = "${var.key_name}"
   security_groups = ["${var.security_group}"]
-  user_data = "${file(var.user_data)}"
+  user_data = "${element(data.template_cloudinit_config.userdata.*.rendered, count.index)}"
 
   lifecycle {
     create_before_destroy = true
