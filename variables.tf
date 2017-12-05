@@ -63,6 +63,10 @@ variable "load_balancer_names" {
   description = "A comma seperated list string of ELB names the ASG should associate instances with"
 }
 
+variable "target_group_arns" {
+  description = "A comma seperated list string of target group ARNs the ASG should associate instances with"
+}
+
 /*
  * A string list of AZs, ex:
  * "us-east-1a,us-east-1c,us-east-1e"

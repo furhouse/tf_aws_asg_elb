@@ -9,12 +9,16 @@
  */
 
 resource "aws_launch_configuration" "launch_config" {
-  name = "${var.lc_name}"
+  name_prefix = "${var.lc_name}-"
   image_id = "${var.ami_id}"
   instance_type = "${var.instance_type}"
   key_name = "${var.key_name}"
   security_groups = ["${var.security_group}"]
   user_data = "${file(var.user_data)}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_autoscaling_group" "main_asg" {
@@ -38,4 +42,11 @@ resource "aws_autoscaling_group" "main_asg" {
   health_check_type = "${var.health_check_type}"
 
   load_balancers = ["${split(",", var.load_balancer_names)}"]
+
+  target_group_arns = ["${split(",", var.target_group_arns)}"]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
 }
