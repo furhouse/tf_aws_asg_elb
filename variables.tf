@@ -33,6 +33,10 @@ variable "asg_number_of_instances" {
   description = "The number of instances we want in the ASG"
 }
 
+variable "asg_desired_number_of_instances" {
+  description = "The desired number of instances we want in the ASG"
+}
+
 /*
  * Can be set to 0 if you never want the ASG to replace failed instances
  */
