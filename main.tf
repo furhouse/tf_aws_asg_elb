@@ -12,7 +12,7 @@ data "template_file" "cloud-init" {
   template = "${file("${path.module}/cloud-init.yaml.tpl")}"
   count    = "${var.count}"
   vars {
-    hostname = "${var.hostname}-${count.index + 1}"
+    hostname = "${var.hostname}"
   }
 }
 
