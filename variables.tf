@@ -93,3 +93,8 @@ variable "count" {
   type = "string"
   default = 1
 }
+
+variable "enabled_metrics"  {
+  type = "list"
+  default = []
+}

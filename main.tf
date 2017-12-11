@@ -68,4 +68,6 @@ resource "aws_autoscaling_group" "main_asg" {
     create_before_destroy = true
   }
 
+  enabled_metrics = "${var.enabled_metrics}"
+
 }
